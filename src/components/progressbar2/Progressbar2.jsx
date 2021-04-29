@@ -12,6 +12,7 @@ import YellowImg from "../../assets/Pathyellow.svg";
 import CustomQuest from "../shared/CustomQuest";
 import questions from "./choice";
 import { useHistory } from "react-router";
+import { saveState } from "../utils/Helpers"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,8 +44,13 @@ const Progress1 = () => {
   const classes = useStyles();
   const [clicked, setClicked] = useState("");
   const history = useHistory();
+  const [choice, setChoice] = useState([]);
+  const PROGRESS2_STATE = "PROGRESS2_STATE";
 
   const nextStep = () => {
+    const values = choice.slice(0, 2);
+    console.log(choice);
+    saveState(PROGRESS2_STATE , values);
     history.push("/step/3");
   };
     
@@ -55,6 +61,9 @@ const Progress1 = () => {
   const selected = (value) => {
     console.log(value.selection);
     setClicked(value.selection);
+    setChoice(prevValue => {
+      return [...prevValue, value]
+    })
     console.log("clicked me");
   };
 
@@ -86,7 +95,7 @@ const Progress1 = () => {
       />
       <div className={classes.mainHead}>
         <BrandText className="brand">digg</BrandText>
-        <CustomProgress progress={10} />
+        <CustomProgress progress={20} />
       </div>
 
       <div className="questions">

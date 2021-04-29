@@ -22,6 +22,7 @@ import axios from "axios";
 import CustomShape from "../shared/CustomShape";
 import YelloImg from "../../assets/Pathyellow.svg";
 import RedImg from "../../assets/Pathred.svg";
+import { saveState, loadState } from "../utils/Helpers"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,7 +100,9 @@ const useStyles = makeStyles((theme) => ({
   const Wrapper = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [countries, setContries] = useState([]);
+    const [countries, setContries] = useState([]);
+    const [userDetail, setUserDetail] = useState(null);
+  const USER_STATE = "USER_STATE";
 
   const initialState = {
     firstName: "",
@@ -112,21 +115,26 @@ const useStyles = makeStyles((theme) => ({
     email: "",
   };
 
-  useEffect(() => {
+    useEffect(() => {
     axios.get(
       "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json"
     ).then((response) => {
       console.log(response.data);
+      const user = loadState(USER_STATE);
+      setUserDetail(user);
       setContries(response.data);
     }).catch((err) => {
       console.log(err);
     });
   }, []);
 
-  const submitForm = (values) => {
+    const submitForm = (values) => {
     console.log(values);
+    saveState(USER_STATE , values);
     history.push("/step/1");
   };
+    
+    console.log(userDetail);
 
   return (
     <div className={classes.root}>
@@ -163,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
           Apply now to work in Dubai
         </Typography>
         <Formik
-          initialValues={initialState}
+          initialValues={userDetail ? userDetail : initialState}
           validationSchema={validationSchema}
           enableReinitialize={true}
           onSubmit={(values) => submitForm(values)}

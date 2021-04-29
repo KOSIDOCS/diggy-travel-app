@@ -86,7 +86,7 @@ const Progress1 = () => {
       />
       <div className={classes.mainHead}>
         <BrandText className="brand">digg</BrandText>
-        <CustomProgress progress={10} />
+        <CustomProgress progress={70} />
       </div>
 
       <div className="questions">

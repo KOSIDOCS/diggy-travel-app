@@ -1,9 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grid } from "@material-ui/core";
-import FaceIcon from "@material-ui/icons/Face";
-import { CustomChip } from "../shared/SharedStyles";
 import CustomChoice from "../shared/CustomChoice";
+import questions from "../progressbar7/choice";
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +18,8 @@ const useStyles = makeStyles({
 });
 
 const CustomQuest = ({ question, options, onSelect, itemClicked }) => {
-  const classes = useStyles();
+    const classes = useStyles();
+    
 
   return (
     <div className={classes.root}>
@@ -32,8 +32,8 @@ const CustomQuest = ({ question, options, onSelect, itemClicked }) => {
             return (
               <Grid item>
                 <CustomChoice
-                  key={option.answer}
-                  highlight={option.answer === itemClicked && "secondary"}
+                  key={index}
+                  highlight={option.answer+question === itemClicked && "secondary"}
                   img={
                     option.icon &&
                     "https://github.com/raffi23/digg-api-dummy/raw/main/images/" +
@@ -41,7 +41,7 @@ const CustomQuest = ({ question, options, onSelect, itemClicked }) => {
                       ".svg"
                   }
                   label={option.answer}
-                  click={() => onSelect({ selection: option.answer })}
+                  click={() => onSelect({ index: index, question: question, selection: option.answer })}
                 />
               </Grid>
             );

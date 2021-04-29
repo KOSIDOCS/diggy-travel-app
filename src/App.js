@@ -7,6 +7,7 @@ import Progress4 from "./components/progressbar4/Progressbar4"
 import Progress5 from "./components/progressbar5/Progressbar5"
 import Progress6 from "./components/progressbar6/Progressbar6"
 import Progress7 from "./components/progressbar7/Progressbar7"
+import ReviewDetails from "./components/detail/ReviewDetails"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
         </Route>
         <Route exact path="/step/7">
           <Progress7 />
+        </Route>
+        <Route exact path="/step/deatils">
+          <ReviewDetails />
         </Route>
         <Route exact path="/">
           <Wrapper />
